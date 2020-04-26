@@ -5,32 +5,31 @@ import React from 'react';
 // 객제 배열
 
 class App extends React.Component{
+  state = {
+    isLoading : true,
 
-  state={
-    count : 0
+
 
 
   };
 
-  add = () => {
-    this.setState(current => ({ count : current.count + 1}));
-  };
-  minus = () => {
-    this.setState( current => ({ count : current.count - 1}));
-  }; 
-// react에서 외부의 상태에 의존 하지 않는 가장 좋은 방법
+componentDidMount(){
+  setTimeout(() => {
+
+    this.setState({ isLoading : false});
+    
+  },6000);
+
+}
 
 
 //여기는 return 이 없다.
 render(){
+  const { isLoading} = this.state;
   return (
   <div>  
-    The count is {this.state.count}
-    <button onClick={this.add}>Add</button>
-    <button onClick = {this.minus}>Minus</button>
-    
+      { isLoading ? "Loading..." : "We are ready" }
     </div>)
 }
 }
-
 export default App;
