@@ -1,35 +1,47 @@
 import React from 'react';
+import axios from "axios";
+import Movie from "./Movies";
 
 
 //const foodILike = [{}]
 // 객제 배열
 
-class App extends React.Component{
+class App extends React.Component {
   state = {
-    isLoading : true,
-
-
-
-
+    isLoading: true,
   };
 
-componentDidMount(){
-  setTimeout(() => {
+  getMovies = async () => {
+    const { data: { data: { movies } } } = await axios.get("https://yts-proxy.now.sh/list_movies.json?sort_by=rating");
+    this.setState({ movies, isLoading: false })
 
-    this.setState({ isLoading : false});
-    
-  },6000);
+    console.log(movies);
 
-}
+  }
+
+  componentDidMount() {
+    this.getMovies();
+  }
+  //여기는 return 이 없다.
+  render() {
+    const { isLoading, movies } = this.state;
+    //console.log("mount 중 ")
+    return (
+      <div>
+        {isLoading ? "Loading..." : movies.map(movie => {
+          return (
+            <Movie
+              id={movie.id}
+              year={movie.year}
+              title={movie.title}
+              summary={movie.summary}
+              poster={movie.medium_cover_image}
+            />
+          );
+        })}
+      </div>)
 
 
-//여기는 return 이 없다.
-render(){
-  const { isLoading} = this.state;
-  return (
-  <div>  
-      { isLoading ? "Loading..." : "We are ready" }
-    </div>)
-}
+  }
 }
 export default App;
