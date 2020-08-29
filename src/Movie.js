@@ -13,4 +13,5 @@ Movie.propTypes = {
   poster: PropTypes.string.isRequired
 };
 
+//git 사용하기
 export default Movie;
