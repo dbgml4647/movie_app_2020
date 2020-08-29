@@ -3,6 +3,8 @@ import axios from "axios";
 import Movie from "./Movie";
 import "../src/App.css";
 
+
+
 class App extends React.Component {
   state = {
     isLoading: true,
